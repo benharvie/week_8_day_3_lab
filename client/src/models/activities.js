@@ -8,7 +8,12 @@ const Activities = function (){
 
 Activities.prototype.bindEvents = function () {
   PubSub.subscribe('ActivityView:bucketlist-submitted', (event) => {
-    console.log(event.detail);
+    const newActivity = event.detail;
+    this.request.post(newActivity)
+      .then((newActivity) => {
+        PubSub.publish('Activities:activity-loaded', newActivity);
+      })
+      .catch(console.error)
   });
 };
 
