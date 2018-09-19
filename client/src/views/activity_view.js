@@ -5,11 +5,23 @@ const ActivityView = function(element){
 }
 
 ActivityView.prototype.bindEvents = function () {
-  console.log('ready to render');
+  PubSub.subscribe('Activities:activity-loaded', (event) => {
+    this.render(event.detail);
+  })
 };
 
-ActivityView.prototype.render = function () {
+ActivityView.prototype.render = function (activities) {
+  const container = this.element;
+  const bucketlist = document.createElement('ul');
+  bucketlist.id = "bucketlist-list"
 
+  activities.forEach((activity) => {
+    const newActivity = document.createElement('li');
+    newActivity.textContent = activity.name
+    bucketlist.appendChild(newActivity)
+  })
+
+  container.appendChild(bucketlist);
 };
 
 module.exports = ActivityView;

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const activityFormView = new ActivityFormView(bucketlistForm);
   activityFormView.bindEvents();
 
-  const bucketlistList = document.querySelector('#bucketlist-list')
+  const bucketlistList = document.querySelector('#bucketlist-container')
   const activityView = new ActivityView(bucketlistList);
   activityView.bindEvents();
 
