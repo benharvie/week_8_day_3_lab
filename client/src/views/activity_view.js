@@ -17,7 +17,7 @@ ActivityView.prototype.render = function (activities) {
 
   activities.forEach((activity) => {
     const newActivity = document.createElement('li');
-    newActivity.textContent = activity.name
+    newActivity.textContent = `${activity.name} | ${activity.location} | ${activity.completed}`
     bucketlist.appendChild(newActivity)
   })
 
