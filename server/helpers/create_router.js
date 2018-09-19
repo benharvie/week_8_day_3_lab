@@ -16,7 +16,7 @@ const createRouter = function (collection){
       });
   });
 
-  router.get('/:id', (req, res) => {
+  router.get('/:id', (req, res) => { // SHOW
     const id = req.params.id;
     collection
       .find({ _id: ObjectID(id) })
@@ -28,7 +28,21 @@ const createRouter = function (collection){
         res.json({ status: 500, error: err });
       });
   })
+
+  router.post('/', (req, res) => {
+    const data = req.body
+    collection
+      .insertOne(data)
+      .then(() => {
+        collection
+          .find()
+          .toArray()
+          .then((docs) => {
+            res.json(docs)
+          });
+      });
+  });
   return router;
-}
+};
 
 module.exports = createRouter;
