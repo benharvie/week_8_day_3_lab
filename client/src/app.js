@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const activityView = new ActivityView(bucketlistList);
   activityView.bindEvents();
 
+
   const activities = new Activities();
   activities.bindEvents();
+  activities.getData();
 });

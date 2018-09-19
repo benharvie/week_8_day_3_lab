@@ -17,4 +17,12 @@ Activities.prototype.bindEvents = function () {
   });
 };
 
+Activities.prototype.getData = function () {
+  this.request.get()
+    .then((activity) => {
+      PubSub.publish('Activities:activity-loaded', activity);
+    })
+    .catch(console.error);
+};
+
 module.exports = Activities;
