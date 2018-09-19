@@ -29,8 +29,8 @@ const createRouter = function (collection){
       });
   })
 
-  router.post('/', (req, res) => {
-    const data = req.body
+  router.post('/', (req, res) => { // INSERT
+    const data = req.body;
     collection
       .insertOne(data)
       .then(() => {
@@ -39,9 +39,35 @@ const createRouter = function (collection){
           .toArray()
           .then((docs) => {
             res.json(docs)
-          });
+          })
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500);
+        res.json({ status: 500, error: err });
       });
   });
+
+  router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+    collection
+      .updateOne({ _id: ObjectID(id) }, { $set: data })
+      .then(() => {
+        collection
+          .find()
+          .toArray()
+          .then((docs) => res.json(docs))
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500);
+        res.json({ status: 500, error: err });
+      });
+  })
+
+
+
   return router;
 };
 
